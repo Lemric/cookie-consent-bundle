@@ -44,12 +44,16 @@ class CookieHandler
      * Save chosen cookie categories in cookies.
      * @throws Exception
      */
-    public function save(array $categories, string $cookieConsentKey, Response $response): void
+    public function save(array $categories, string $cookieConsentKey, Response $response, bool $rejectAllCookies): void
     {
         $consentCookie = $this->cookieSettings->getConsentCookie();
         if ($consentCookie != null) {
             $this->saveCookie($consentCookie->getName(), date('r'), $consentCookie->getExpires(),
                 $consentCookie->isSecure(), $consentCookie->isHttpOnly(), $consentCookie->getSameSite(), $response);
+        }
+
+        if ($rejectAllCookies) {
+            return;
         }
 
         $consentKeyCookie = $this->cookieSettings->getConsentKeyCookie();
@@ -61,8 +65,10 @@ class CookieHandler
         $consentCategoriesCookie = $this->cookieSettings->getConsentCategoriesCookie();
         if ($consentCategoriesCookie != null) {
             foreach ($categories as $category => $permitted) {
-                $this->saveCookie($consentCategoriesCookie->getName() . '-' . $category, $permitted, $consentCategoriesCookie->getExpires(),
-                    $consentCategoriesCookie->isSecure(), $consentCategoriesCookie->isHttpOnly(), $consentCategoriesCookie->getSameSite(), $response);
+                if ($permitted != null) {
+                    $this->saveCookie($consentCategoriesCookie->getName() . '-' . $category, $permitted, $consentCategoriesCookie->getExpires(),
+                        $consentCategoriesCookie->isSecure(), $consentCategoriesCookie->isHttpOnly(), $consentCategoriesCookie->getSameSite(), $response);
+                }
             }
         }
     }

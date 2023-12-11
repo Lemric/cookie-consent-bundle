@@ -7,6 +7,7 @@
     - Style dialog
 - Style form
     - https://symfony.com/doc/current/form/form_themes.html
+    - https://symfony.com/doc/current/forms.html#rendering-forms
 - Create Symfony Flex recipe: https://github.com/symfony/recipes
 - ID for cookie consent log as UUID instead of integer
 

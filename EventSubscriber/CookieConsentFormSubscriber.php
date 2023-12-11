@@ -61,7 +61,14 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     {
         $cookieConsentKey = $this->getCookieConsentKey($request);
 
-        $this->cookieHandler->save($categories, $cookieConsentKey, $response);
+        // TODO: Fix query for cookie_consent->reject_all_cookies -> use different endpoint
+        $rejectAllCookies = isset($request->get('cookie_consent')['reject_all_cookies']);
+
+        $this->cookieHandler->save($categories, $cookieConsentKey, $response, $rejectAllCookies);
+
+        if ($rejectAllCookies) {
+            return;
+        }
 
         if ($this->persistConsent) {
             $this->cookieLogger->log($categories, $cookieConsentKey);
