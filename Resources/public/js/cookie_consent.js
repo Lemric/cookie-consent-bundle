@@ -1,8 +1,3 @@
-function getCsrfToken(cookieConsentForm) {
-    let csrfTokenField = cookieConsentForm.querySelector('#cookie_consent__token');
-    return encodeURIComponent(csrfTokenField.getAttribute('name')) + '=' + encodeURIComponent(csrfTokenField.getAttribute('value'));
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const cookieConsent = document.querySelector('.cookie-consent');
     const cookieConsentForm = document.querySelector('.cookie-consent__form');
@@ -74,6 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+function getCsrfToken(cookieConsentForm) {
+    let csrfTokenField = cookieConsentForm.querySelector('#cookie_consent__token');
+    return encodeURIComponent(csrfTokenField.getAttribute('name')) + '=' + encodeURIComponent(csrfTokenField.getAttribute('value'));
+}
 
 function serializeForm(form, clickedButton) {
     const serialized = [];
