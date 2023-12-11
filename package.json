@@ -1,0 +1,37 @@
+{
+  "name": "cookie-consent-bundle",
+  "version": "1.0.0",
+  "description": "Symfony bundle to ask the visitors for their consent to use cookies to comply to AVG/GDPR.",
+  "scripts": {
+    "build:prod": "node build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Huppys/cookie-consent-bundle.git"
+  },
+  "keywords": [
+    "gdpr",
+    "cookies",
+    "cookie",
+    "consent",
+    "banner"
+  ],
+  "author": {
+    "name": "Oliver Witzki",
+    "email": "projects@oliverwitzki.de"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Huppys/cookie-consent-bundle/issues"
+  },
+  "homepage": "https://github.com/Huppys/cookie-consent-bundle#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "glob": "^10.3.10",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.69.5"
+  },
+  "dependencies": {
+    "postcss": "^8.4.32"
+  }
+}

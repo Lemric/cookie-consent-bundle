@@ -1,3 +1,19 @@
+@import "mixins/mixins";
+
+// Dark theme
+$cookie-consent-dark-theme-background-color: #000 !default;
+$cookie-consent-dark-theme-text-color: #fff !default;
+$cookie-consent-dark-theme-border-color: #fff !default;
+$cookie-consent-dark-theme-checkbox-inactive-background-color: #000 !default;
+$cookie-consent-dark-theme-checkbox-inactive-text-color: #fff !default;
+$cookie-consent-dark-theme-checkbox-inactive-border-color: #fff !default;
+$cookie-consent-dark-theme-checkbox-active-background-color: #fff !default;
+$cookie-consent-dark-theme-checkbox-active-text-color: #000 !default;
+$cookie-consent-dark-theme-checkbox-active-border-color: #000 !default;
+$cookie-consent-dark-theme-secondary-button-background: transparent !default;
+$cookie-consent-dark-theme-secondary-button-text-color: #fff !default;
+$cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
+
 .cookie-consent--dark-theme {
   background-color: $cookie-consent-dark-theme-background-color;
   color: $cookie-consent-dark-theme-text-color;
