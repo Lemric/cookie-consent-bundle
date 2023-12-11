@@ -1,23 +1,3 @@
-# Next!
-- update JS
-  - emit successful submit form event
-  - submit form asynchronously
-- Set Cookie after rejecting all cookies to not display the dialog again
-- make form available in dialog (Fuck off, IE11!!!)
-  - Style dialog
-- Style form
-  - https://symfony.com/doc/current/form/form_themes.html
-- Create Symfony Flex recipe: https://github.com/symfony/recipes
-- ID for cookie consent log as UUID instead of integer
-
-# Concept
-Cookie consent consists of:
-- Obligatory:
-  - Session-Cookie
-  - CSRF-Token
-- optional:
-  - Functional, marketing, social media, whatever
-
 # Cookie Consent bundle for Symfony
 Symfony bundle to integrate a cookie consent dialog to your website and to handle cookies according to AVG/GDPR.
 
@@ -123,11 +103,11 @@ When a user submits the form the preferences are saved as cookies. The cookies h
 ### Logging
 AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. IP addresses are anonymized. This option can be disabled in the config.
 
-![Database logging](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/log.png)
+![Database logging](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/log.png)
 
 ### Themes
-![Dark Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/dark_theme.png)
-![Light Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/light_theme.png)
+![Dark Theme](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/dark_theme.png)
+![Light Theme](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/light_theme.png)
 
 ### TwigExtension
 The following TwigExtension functions are available:

@@ -1,7 +1,7 @@
 {
   "name": "huppys/cookie-consent-bundle",
   "type": "symfony-bundle",
-  "description": "Symfony bundle for implementing Cookie Consent to comply to AVG/GDPR.",
+  "description": "Symfony bundle to ask the visitors for their consent to use cookies to comply to AVG/GDPR.",
   "license": "MIT",
   "require": {
     "php": "^8.1.0",
