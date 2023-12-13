@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 
-
 namespace huppys\CookieConsentBundle\Tests\Cookie;
 
 use huppys\CookieConsentBundle\Cookie\CookieHandler;
@@ -48,6 +47,14 @@ class CookieHandlerTest extends TestCase
         $this->assertSame('false', $this->cookies[4]->getValue());
     }
 
+    public function testRejectAllCookies(): void
+    {
+        $this->saveCookieHandler($this->getCookieDefaultConfig(), true);
+        $this->cookies = $this->response->headers->getCookies();
+        $this->assertCount(1, $this->cookies);
+        $this->assertSame('testCookie_consent', $this->cookies[0]->getName());
+    }
+
     /**
      * Test CookieHandler:save with httpOnly false.
      */
@@ -72,7 +79,7 @@ class CookieHandlerTest extends TestCase
     /**
      * Save CookieHandler
      */
-    public function saveCookieHandler(array $cookieSettings): void
+    public function saveCookieHandler(array $cookieSettings, bool $rejectAllCookies = false): void
     {
         $cookieHandler = new CookieHandler($cookieSettings);
 
@@ -80,7 +87,7 @@ class CookieHandlerTest extends TestCase
             'analytics' => 'true',
             'social_media' => 'true',
             'tracking' => 'false',
-        ], 'key-test', $this->response);
+        ], 'key-test', $this->response, $rejectAllCookies);
     }
 
     private function getCookieDefaultConfig(): array
