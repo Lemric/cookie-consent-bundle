@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Symfony bundle to ask the visitors for their consent to use cookies to comply to AVG/GDPR.",
   "scripts": {
-    "build:prod": "node build.mjs"
+    "build:prod": "node build.mjs && rollup --config rollup.config.mjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Huppys/cookie-consent-bundle.git"
   },
+  "module": "Resources/assets/js/cookie-consent.mjs",
   "keywords": [
     "gdpr",
     "cookies",
@@ -26,9 +27,14 @@
   },
   "homepage": "https://github.com/Huppys/cookie-consent-bundle#readme",
   "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.16",
     "glob": "^10.3.10",
     "postcss-cli": "^11.0.0",
+    "rollup": "^4.8.0",
     "sass": "^1.69.5"
   },
   "dependencies": {

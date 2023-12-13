@@ -149,7 +149,7 @@ And include the styling in your template:
 ```
 
 ### Javascript
-By loading Resources/public/js/cookie_consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
+By loading Resources/public/js/cookie-consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
 
 ### Events
 When a form button is clicked, the event of cookie-consent-form-submit-successful is created. Use the following code to listen to the event and add your custom functionality.
