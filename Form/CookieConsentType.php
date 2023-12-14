@@ -11,15 +11,17 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CookieConsentType extends AbstractType
 {
     protected CookieChecker $cookieChecker;
     protected array $cookieCategories;
     protected bool $csrfProtection;
+    private TranslatorInterface $translator;
 
     public function __construct(
+        TranslatorInterface $translator,
         CookieChecker $cookieChecker,
         array         $cookieCategories,
         bool          $csrfProtection = true
@@ -28,6 +30,7 @@ class CookieConsentType extends AbstractType
         $this->cookieChecker = $cookieChecker;
         $this->cookieCategories = $cookieCategories;
         $this->csrfProtection = $csrfProtection;
+        $this->translator = $translator;
     }
 
     /**
@@ -36,6 +39,9 @@ class CookieConsentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         foreach ($this->cookieCategories as $category) {
+            $categoryTitle = $this->translate('cookie_consent.' . $category . '.title');
+            $categoryDescription = $this->translate('cookie_consent.' . $category . '.description');
+            
             $builder->add($category, ChoiceType::class, [
                 'expanded' => true,
                 'multiple' => false,
@@ -44,7 +50,8 @@ class CookieConsentType extends AbstractType
                     ['cookie_consent.yes' => 'true'],
                     ['cookie_consent.no' => 'false'],
                 ],
-                'help' => $this->translate('cookie_consent.' . $category . '.title'),
+                'help' => '<h4 class="cookie-consent__category-title">' . $categoryTitle . '</h4><p class="cookie-consent__category-description">' . $categoryDescription . '</p>',
+                'help_html' => true,
             ]);
         }
 
@@ -74,8 +81,8 @@ class CookieConsentType extends AbstractType
         ]);
     }
 
-    private function translate(string $key): TranslatableMessage
+    private function translate(string $key): string
     {
-        return new TranslatableMessage($key, [], 'CookieConsentBundle');
+        return $this->translator->trans($key, [], 'CookieConsentBundle');
     }
 }

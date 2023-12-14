@@ -8,12 +8,11 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="cookie-consent__category-information">
-            {% block cookie_title_with_description %}
-                <h4 class="cookie-consent__category-title">{{ ('cookie_consent.'~name~'.title')|trans({}, 'CookieConsentBundle') }}</h4>
-                <p class="cookie-consent__category-description">{{ ('cookie_consent.'~name~'.description')|trans({}, 'CookieConsentBundle') }}</p>
-            {% endblock %}
-        </div>
+        {% block cookie_title_with_description %}
+            <div class="cookie-consent__category-information">
+                {{- form_help(form) -}}
+            </div>
+        {% endblock cookie_title_with_description %}
     </div>
 {% endblock %}
 
