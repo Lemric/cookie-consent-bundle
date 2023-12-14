@@ -193,6 +193,10 @@ Create a file: ``templates/bundles/CookieConsentBundle/cookie_consent.html.twig`
 {% block title %}
     Your custom title
 {% endblock %}
+
+{% block required_cookies_category %}
+    {# let's hide this block #}
+{% endblock required_cookies_category %}
 ```
 
 # Troubleshoting

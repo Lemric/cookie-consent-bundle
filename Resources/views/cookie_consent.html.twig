@@ -2,10 +2,9 @@
     <script type="text/javascript" src="{{ asset('bundles/cookieconsent/js/cookie-consent.js') }}"></script>
 {% endblock %}
 
-{# Wrap in dialog tag if position is dialog #}
-{% if position == 'dialog' %}
+{% if position == 'dialog' %} {# Wrap in dialog tag if position is dialog #}
 <dialog class="cookie-consent-dialog">
-    {% endif %}
+{% endif %}
 
     <div class="cookie-consent cookie-consent--{{ theme }}-theme cookie-consent--{{ position }}">
         {% block title %}
@@ -42,6 +41,6 @@
         {{ form_end(form) }}
     </div>
 
-    {% if position == 'dialog' %}
+{% if position == 'dialog' %}
 </dialog>
 {% endif %}
