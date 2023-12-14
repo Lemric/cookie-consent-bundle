@@ -46,17 +46,11 @@ cookie_consent:
 ```
 
 ### Step 4: Configure to your needs
-Configure the cookie consent bundle to your needs. By default, the most secure options are enabled.
-You can change the config in config/packages/cookie_consent.yaml:
+By default, the most secure options are enabled. You can change the config in `config/packages/cookie_consent.yaml`:
 ```yaml
 cookie_consent:
   cookie_settings:
     name_prefix: '' # string, any string you like to prefix the cookie names with
-    consent_categories: # Below are the default supported categories
-      - 'analytics'
-      - 'tracking'
-      - 'marketing'
-      - 'social_media'
     cookies:
       consent_cookie:
         http_only: true # boolean, refer to mdn docs for more info
@@ -73,6 +67,11 @@ cookie_consent:
         secure: true
         same_site: 'lax'
         expires: 'P180D'
+  consent_categories: # Below are the default supported categories
+    - 'analytics'
+    - 'tracking'
+    - 'marketing'
+    - 'social_media'
   theme: 'light' # available values: 'light', 'dark'
   persist_consent: true # boolean; logs user actions to database
   position: 'top' # available values: 'top', 'bottom', 'dialog'
@@ -95,17 +94,20 @@ If you want to load the cookie consent with a specific locale you can pass the l
 ```
 
 ### Cookies
-When a user submits the form the preferences are saved as cookies. The cookies have a lifetime of 1 year. The following cookies are saved:
-- **Cookie_Consent**: date of submit
-- **Cookie_Consent_Key**: Generated key as identifier to the submitted Cookie Consent of the user
-- **Cookie_Category_[CATEGORY]**: selected value of user (*true* or *false*)
+When a user submits the form the preferences are saved as cookies. The cookies have a lifetime of 180 days. The following cookies are saved:
+- **consent**: date of submit
+- **consent-key**: Generated key as identifier to the submitted Cookie Consent of the user
+- **consent-category-[CATEGORY]**: selected value of user (*true* or *false*)
+
+In case the user rejects to usage of cookies, only the cookie named **consent** is saved with the current date as value.
 
 ### Logging
-AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. IP addresses are anonymized. This option can be disabled in the config.
+AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. IP addresses are anonymized. You can disable logging the given consent by setting `persist_consent` to *false*.
 
 ![Database logging](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/log.png)
 
 ### Themes
+This bundle comes with two themes: `light` and `dark`. You can change the theme in the config. The default theme is `light`.
 ![Dark Theme](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/dark_theme.png)
 ![Light Theme](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/light_theme.png)
 
@@ -113,7 +115,7 @@ AVG/GDPR requires all given cookie preferences of users to be explainable by the
 The following TwigExtension functions are available:
 
 **cookieconsent_isCategoryAllowedByUser**
-check if user has given it's permission for certain cookie categories
+Check if user has given its permission for certain cookie categories.
 ```twig
 {% if cookieconsent_isCategoryAllowedByUser('analytics') == true %}
     ...
@@ -121,22 +123,31 @@ check if user has given it's permission for certain cookie categories
 ```
 
 **cookieconsent_isCookieConsentSavedByUser**
-check if user has saved any cookie preferences
+Check if user has saved any cookie preferences. This will default to *true* even when the user chose to reject all cookies.
 ```twig
 {% if cookieconsent_isCookieConsentSavedByUser() == true %}
     ...
 {% endif %}
 ```
 
+**cookieconsent_getTheme**
+Determine the current value of the chosen theme.
+```twig
+{% if cookieconsent_getTheme() == 'light' %}
+    ...
+{% endif %}
+```
+
 ## Customization
 ### Categories
-You can add or remove any category by changing the config and making sure there are translations available for these categories.
+You can add or remove any category by changing the configuration option `consent_categories` and making sure there are translations available for these categories.
 
 ### Translations
-All texts can be altered via Symfony translations by overwriting the CookieConsentBundle translation files.
+All texts can be altered via Symfony translations by overwriting the CookieConsentBundle translation files. Take a look at ``Resources/translations`` into any of the `yaml` files to get an idea of the structure.
 
 ### Styling
-CookieConsentBundle comes with a default styling. A sass file is available in Resources/assets/css/cookie_consent.scss and a build css file is available in Resources/public/css/cookie_consent.css. Colors can easily be adjusted by setting the variables available in the sass file.
+CookieConsentBundle comes with a default styling. A sass file is available in `Resources/assets/css/cookie_consent.scss` and a build css file is available in `Resources/public/css/cookie_consent.css`. 
+Colors can easily be adjusted by setting the variables available in the sass file.
 
 To install these assets run:
 ```bash
@@ -161,13 +172,28 @@ document.addEventListener('cookie-consent-form-submit-successful', function (e) 
 ```
 
 ### Template Themes
-You can override the templates by placing templates inside your project (except for Symfony 5 projects):
+You can override the templates by placing templates inside your project:
 
+#### Form Themes
+This bundle comes with a default theme. To use this particular theme, please add the following line to your ``config/packages/twig.yaml``:
+```yaml
+twig:
+    form_themes:
+      - '@CookieConsent/form/cookie_consent_form_theme.html.twig'
+```
+To use a different form theme from symfony/form bundle, stick to the [Symfony documentation about rendering forms](https://symfony.com/doc/current/form/form_themes.html). Remember to load the scripts and styles that belong to the theme. 
+
+#### Define your own form template
+Create a file: ``Resources/CookieConsentBundle/views/cookie_consent.html.twig`` and insert the following code:
 ```twig
 # app/Resources/CookieConsentBundle/views/cookie_consent.html.twig
-{% extends '@!CookieConsent/cookie_consent.html.twig' %}
+{% extends '@!CookieConsent/cookie_consent.html.twig' %} # or whatever form theme you like
 
 {% block title %}
     Your custom title
 {% endblock %}
 ```
+
+# Troubleshoting
+## Error 500 after submitting the form
+If you get an error 500 after submitting the form, make sure you have the route available for the configuration option ``form_action``. 

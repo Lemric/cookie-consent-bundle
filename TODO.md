@@ -1,10 +1,11 @@
 # Next!
-- update JS
-    - emit successful submit form event
-    - submit form asynchronously
-- Set Cookie after rejecting all cookies to not display the dialog again
-- make form available in dialog (Fuck off, IE11!!!)
-    - Style dialog
+-[x] update JS to .mjs and add bundler like rollup
+ -[x] no need for seperate styling scss
+- emit successful submit form event
+- submit form asynchronously
+-[x] Set Cookie after rejecting all cookies to not display the dialog again
+-[x] make form available in dialog (Fuck off, IE11!!!)
+- Style dialog
 - Style form
     - https://symfony.com/doc/current/form/form_themes.html
     - https://symfony.com/doc/current/forms.html#rendering-forms

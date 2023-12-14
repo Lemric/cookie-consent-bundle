@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class CookieConsentType extends AbstractType
 {
@@ -43,11 +44,22 @@ class CookieConsentType extends AbstractType
                     ['cookie_consent.yes' => 'true'],
                     ['cookie_consent.no' => 'false'],
                 ],
+                'help' => $this->translate('cookie_consent.' . $category . '.title'),
             ]);
         }
 
-        $builder->add('save', SubmitType::class, ['label' => 'cookie_consent.save', 'attr' => ['class' => 'btn cookie-consent__btn js-submit-cookie-consent-form']]);
-        $builder->add('reject_all_cookies', SubmitType::class, ['label' => 'cookie_consent.reject_all', 'attr' => ['class' => 'btn cookie-consent__btn js-reject-all-cookies']]);
+        $builder->add('save', SubmitType::class, [
+            'label' => $this->translate('cookie_consent.save'),
+            'attr' => [
+                'class' => 'btn cookie-consent__btn js-submit-cookie-consent-form'
+            ]
+        ]);
+        $builder->add('reject_all_cookies', SubmitType::class, [
+            'label' => $this->translate('cookie_consent.reject_all'),
+            'attr' => [
+                'class' => 'btn cookie-consent__btn js-reject-all-cookies'
+            ]
+        ]);
     }
 
     /**
@@ -58,8 +70,12 @@ class CookieConsentType extends AbstractType
         $resolver->setDefaults([
             'translation_domain' => 'CookieConsentBundle',
             'csrf_protection' => $this->csrfProtection,
-//            'csrf_field_name' => '_token',
             'csrf_token_id' => 'csrf_cookie_consent',
         ]);
+    }
+
+    private function translate(string $key): TranslatableMessage
+    {
+        return new TranslatableMessage($key, [], 'CookieConsentBundle');
     }
 }
