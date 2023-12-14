@@ -8,14 +8,19 @@ namespace huppys\CookieConsentBundle\Tests\Form;
 
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use huppys\CookieConsentBundle\Form\CookieConsentType;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CookieConsentTypeTest extends TypeTestCase
 {
     private MockObject $cookieChecker;
 
+    /**
+     * @throws Exception
+     */
     public function setUp(): void
     {
         $this->cookieChecker = $this->createMock(CookieChecker::class);
@@ -41,9 +46,14 @@ class CookieConsentTypeTest extends TypeTestCase
         $this->assertSame($formData, $form->getData());
     }
 
+    /**
+     * @throws Exception
+     */
     protected function getExtensions(): array
     {
-        $type = new CookieConsentType($this->cookieChecker, ['analytics', 'tracking', 'marketing'], false);
+        $translatorInterfaceMock = $this->createMock(TranslatorInterface::class);
+
+        $type = new CookieConsentType($translatorInterfaceMock, $this->cookieChecker, ['analytics', 'tracking', 'marketing'], false);
 
         return [
             new PreloadedExtension([$type], []),

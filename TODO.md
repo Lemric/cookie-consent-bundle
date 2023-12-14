@@ -6,16 +6,8 @@
 -[x] Set Cookie after rejecting all cookies to not display the dialog again
 -[x] make form available in dialog (Fuck off, IE11!!!)
 - Style dialog
-- Style form
+-[x] Style form --> form styles can be applied by using and configuring the symfony twig bundle
     - https://symfony.com/doc/current/form/form_themes.html
     - https://symfony.com/doc/current/forms.html#rendering-forms
 - Create Symfony Flex recipe: https://github.com/symfony/recipes
 - ID for cookie consent log as UUID instead of integer
-
-# Concept
-Cookie consent consists of:
-- Obligatory:
-    - Session-Cookie
-    - CSRF-Token
-- optional:
-    - Functional, marketing, social media, whatever
