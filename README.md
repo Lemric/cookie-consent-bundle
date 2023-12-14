@@ -183,10 +183,11 @@ twig:
 ```
 To use a different form theme from symfony/form bundle, stick to the [Symfony documentation about rendering forms](https://symfony.com/doc/current/form/form_themes.html). Remember to load the scripts and styles that belong to the theme. 
 
+
 #### Define your own form template
-Create a file: ``templates/bundles/CHCookieConsentBundle/cookie_consent.html.twig`` and insert the following code:
+Create a file: ``templates/bundles/CookieConsentBundle/cookie_consent.html.twig`` and insert the following code:
 ```twig
-# app/templates/bundles/CHCookieConsentBundle/cookie_consent.html.twig
+# app/templates/bundles/CookieConsentBundle/cookie_consent.html.twig
 {% extends '@!CookieConsent/cookie_consent.html.twig' %} # or whatever form theme you like
 
 {% block title %}
