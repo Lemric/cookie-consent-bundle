@@ -4,7 +4,7 @@ import terser from '@rollup/plugin-terser';
 const config = {
     input: 'Resources/assets/js/cookie-consent.mjs',
     output: {
-        dir: 'Resources/public/js',
+        file: 'Resources/public/js/cookie-consent.min.js',
         format: 'esm',
         compact: true,
         plugins: [terser()]
