@@ -22,13 +22,9 @@ scssFiles.forEach((file) => {
 
     // handle css by postcss and autoprefixer
     postcss([autoprefixer])
-        .process(result.css, { from: undefined, to: `Resources/public/css/${filename}.css` })
+        .process(result.css, { from: `Resources/public/css/${filename}.css`, to: `Resources/public/css/${filename}.min.css` })
         .then(result => {
             // write css file to file system
-            fs.writeFileSync(`Resources/public/css/${filename}.css`, result.css)
-            if ( result.map ) {
-                // write css map file to file system, if available
-                fs.writeFileSync(`Resources/public/css/${filename}.css.map`, result.map.toString())
-            }
+            fs.writeFileSync(`Resources/public/css/${filename}.min.css`, result.css);
         });
 });
