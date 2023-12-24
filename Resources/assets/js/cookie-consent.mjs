@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         },
                         body: [getCsrfToken(cookieConsentForm), encodeURIComponent(rejectButton.getAttribute('name')) + "="].join('&')
                     }).then(function (res) {
-                        console.log(res);
                         cookieConsentDialog.close();
                         cookieConsent.remove();
                     }).catch(function (error) {
@@ -43,11 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.querySelector('.js-reject-all-cookies').disabled = true;
 
-                const xhr = new XMLHttpRequest();
-
-                xhr.onload = function () {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-
+                fetch(formAction, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: serializeForm(cookieConsentForm, event.target)
+                }).then(function (res) {
+                    if (res.status >= 200 && res.status < 300) {
                         if (cookieConsentDialog) {
                             cookieConsentDialog.close();
                         } else {
@@ -59,12 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
                         document.dispatchEvent(formSubmittedEvent);
                     }
-                };
-                xhr.open('POST', formAction);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                // TODO: migrate to FormData ==> https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_forms_through_JavaScript
-                xhr.send(serializeForm(cookieConsentForm, event.target));
-
+                }).catch(function (error) {
+                    console.error('Error:', error);
+                });
             }, false);
         });
     }
@@ -79,7 +78,7 @@ function serializeForm(form, clickedButton) {
     const serialized = [];
 
     Array.from(form.elements).forEach(function (field) {
-        if ((field.type !== 'checkbox' && field.type !== 'radio' && field.type !== 'button') || field.checked) {
+        if (field.classList.contains('js-cookie-consent-form-element') && field.checked) {
             serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
         }
     });

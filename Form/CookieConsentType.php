@@ -48,9 +48,12 @@ class CookieConsentType extends AbstractType
                 'multiple' => false,
                 'data' => $this->cookieChecker->isCategoryAllowedByUser($category) ? 'true' : 'false',
                 'choices' => [
-                    ['cookie_consent.yes' => 'true'],
-                    ['cookie_consent.no' => 'false'],
+                    'cookie_consent.yes' => 'true',
+                    'cookie_consent.no' => 'false',
                 ],
+                'choice_attr' => function ($choice, string $key, mixed $value) {
+                    return ['class' => 'js-cookie-consent-form-element'];
+                },
                 'help' => $categoryDescription,
             ]);
         }
