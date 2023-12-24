@@ -24,4 +24,4 @@ cookie_consent:
     use_all_cookies: 'Povoliť všetky cookies'
     show_details: 'Zobraziť podrobnosti'
     hide_details: 'Skryť podrobnosti'
-    reject_all_cookies: 'Zamietnuť všetky cookies'
+    reject_all: 'Zamietnuť všetky cookies'

@@ -43,6 +43,7 @@ class CookieConsentType extends AbstractType
             $categoryDescription = $this->translate('cookie_consent.' . $category . '.description');
             
             $builder->add($category, ChoiceType::class, [
+                'label' => $categoryTitle,
                 'expanded' => true,
                 'multiple' => false,
                 'data' => $this->cookieChecker->isCategoryAllowedByUser($category) ? 'true' : 'false',
@@ -50,8 +51,7 @@ class CookieConsentType extends AbstractType
                     ['cookie_consent.yes' => 'true'],
                     ['cookie_consent.no' => 'false'],
                 ],
-                'help' => '<h4 class="cookie-consent__category-title">' . $categoryTitle . '</h4><p class="cookie-consent__category-description">' . $categoryDescription . '</p>',
-                'help_html' => true,
+                'help' => $categoryDescription,
             ]);
         }
 
@@ -61,7 +61,7 @@ class CookieConsentType extends AbstractType
                 'class' => 'btn cookie-consent__btn js-submit-cookie-consent-form'
             ]
         ]);
-        $builder->add('reject_all_cookies', SubmitType::class, [
+        $builder->add('reject_all', SubmitType::class, [
             'label' => $this->translate('cookie_consent.reject_all'),
             'attr' => [
                 'class' => 'btn cookie-consent__btn js-reject-all-cookies'

@@ -24,4 +24,4 @@ cookie_consent:
     use_all_cookies: 'Sta alle cookies toe'
     show_details: 'Toon details'
     hide_details: 'Verberg details'
-    reject_all_cookies: 'Weiger alle cookies'
+    reject_all: 'Weiger alle cookies'

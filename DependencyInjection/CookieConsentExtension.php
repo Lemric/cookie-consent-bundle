@@ -27,6 +27,7 @@ class CookieConsentExtension extends Extension
         $container->setParameter('cookie_consent.theme', $config['theme']);
         $container->setParameter('cookie_consent.position', $config['position']);
         $container->setParameter('cookie_consent.form_action', $config['form_action']);
+        $container->setParameter('cookie_consent.read_more_route', $config['read_more_route']);
         $container->setParameter('cookie_consent.csrf_protection', $config['csrf_protection']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

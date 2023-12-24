@@ -22,34 +22,17 @@ use Twig\Error\SyntaxError;
 #[AsController]
 class CookieConsentController
 {
-    private Environment $twigEnvironment;
-    private FormFactoryInterface $formFactory;
-    private CookieChecker $cookieChecker;
-    private RouterInterface $router;
-    private string $cookieConsentTheme;
-    private string $cookieConsentPosition;
-    private LocaleAwareInterface $translator;
-    private string|null $formAction;
-
     public function __construct(
-        Environment $twigEnvironment,
-        FormFactoryInterface $formFactory,
-        CookieChecker $cookieChecker,
-        RouterInterface $router,
-        string $cookieConsentTheme,
-        string $cookieConsentPosition,
-        LocaleAwareInterface $translator,
-        string $formAction = null
-    ) {
-        $this->twigEnvironment         = $twigEnvironment;
-        $this->formFactory             = $formFactory;
-        $this->cookieChecker           = $cookieChecker;
-        $this->router                  = $router;
-        $this->cookieConsentTheme      = $cookieConsentTheme;
-        $this->cookieConsentPosition   = $cookieConsentPosition;
-        $this->translator              = $translator;
-        $this->formAction              = $formAction;
-    }
+        private readonly Environment $twigEnvironment,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly CookieChecker $cookieChecker,
+        private readonly RouterInterface $router,
+        private readonly string $cookieConsentTheme,
+        private readonly string $cookieConsentPosition,
+        private readonly LocaleAwareInterface $translator,
+        private readonly string|null $formAction,
+        private readonly string|null $readMoreRoute
+    ) {}
 
     /**
      * Show cookie consent.
@@ -65,6 +48,7 @@ class CookieConsentController
                     'form' => $this->createCookieConsentForm()->createView(),
                     'theme' => $this->cookieConsentTheme,
                     'position' => $this->cookieConsentPosition,
+                    'read_more_route' => $this->readMoreRoute,
                 ])
             );
 

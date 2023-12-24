@@ -47,7 +47,9 @@ class CookieConsentControllerTest extends TestCase
             $this->router,
             'dark',
             'top',
-            $this->translator
+            $this->translator,
+            null,
+            null
         );
     }
 

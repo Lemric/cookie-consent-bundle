@@ -1,13 +1,23 @@
 # Next!
--[x] update JS to .mjs and add bundler like rollup
- -[x] no need for seperate styling scss
-- emit successful submit form event
-- submit form asynchronously
--[x] Set Cookie after rejecting all cookies to not display the dialog again
--[x] make form available in dialog (Fuck off, IE11!!!)
-- Style dialog
--[x] Style form --> form styles can be applied by using and configuring the symfony twig bundle
-    - https://symfony.com/doc/current/form/form_themes.html
-    - https://symfony.com/doc/current/forms.html#rendering-forms
-- Create Symfony Flex recipe: https://github.com/symfony/recipes
-- ID for cookie consent log as UUID instead of integer
+- Cookie settings
+  - [ ] Add domain as configurable option
+- Logic
+  - [x] Set Cookie after rejecting all cookies to not display the dialog again
+  - [ ] ID for cookie consent log as UUID instead of integer
+- JavaScript
+  - [x] update JS to .mjs and add bundler like rollup
+  - [ ] emit successful submit form event
+  - [ ] submit form asynchronously
+- SCSS
+  - [x] no need for seperate styling scss
+  - [ ] Style dialog
+- Markup
+  - [x] make form available in dialog (Fuck off, IE11!!!)
+- Forms
+  - [x] Style form --> form styles can be applied by using and configuring the symfony twig bundle
+      - https://symfony.com/doc/current/form/form_themes.html
+      - https://symfony.com/doc/current/forms.html#rendering-forms
+- Security
+  - Which domain is set when setting cookies? With subdomain?
+- Project setup
+  - [ ] Create Symfony Flex recipe: https://github.com/symfony/recipes

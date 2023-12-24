@@ -12,6 +12,7 @@ services:
             $cookieConsentTheme: '%cookie_consent.theme%'
             $cookieConsentPosition: '%cookie_consent.position%'
             $formAction: '%cookie_consent.form_action%'
+            $readMoreRoute: '%cookie_consent.read_more_route%'
             $csrfProtection: '%cookie_consent.csrf_protection%'
 
     huppys\CookieConsentBundle\:

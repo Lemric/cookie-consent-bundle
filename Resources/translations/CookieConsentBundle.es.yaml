@@ -24,4 +24,4 @@ cookie_consent:
     use_all_cookies: 'Permitir todas las cookies'
     show_details: 'Mostrar detalles'
     hide_details: 'Ocultar detalles'
-    reject_all_cookies: 'Rechazar todas las cookies'
+    reject_all: 'Rechazar todas las cookies'

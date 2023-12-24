@@ -4,30 +4,37 @@
 
 {% if position == 'dialog' %} {# Wrap in dialog tag if position is dialog #}
 <dialog class="cookie-consent-dialog">
-{% endif %}
+    {% endif %}
 
     <div class="cookie-consent cookie-consent--{{ theme }}-theme cookie-consent--{{ position }}">
         {% block title %}
             <h3 class="cookie-consent__title">{{ 'cookie_consent.title'|trans({}, 'CookieConsentBundle') }}</h3>
-        {% endblock %}
+        {% endblock title %}
 
         {% block intro %}
             <p class="cookie-consent__intro">{{ 'cookie_consent.intro'|trans({}, 'CookieConsentBundle') }}</p>
-        {% endblock %}
+        {% endblock intro %}
 
         {% block read_more %}
-            <a class="cookie-consent__read-more"
-               href="{% block read_more_link %}/privacy-statement{% endblock %}">{{ 'cookie_consent.read_more'|trans({}, 'CookieConsentBundle') }}</a>
-        {% endblock %}
+            {% if read_more_route %}
+                <a class="cookie-consent__read-more"
+                   href="{{ path(read_more_route) }}">{{ 'cookie_consent.read_more'|trans({}, 'CookieConsentBundle') }}</a>
+            {% endif %}
+        {% endblock read_more %}
 
         {{ form_start(form, {'attr': {'class': 'cookie-consent__form'}}) }}
         <div class="cookie-consent__category-group">
             {% block required_cookies_category %}
                 <div>
-                    <label>{{ ('cookie_consent.required_cookies.title')|trans({}, 'CookieConsentBundle') }}</label>
-                    <p>{{ ('cookie_consent.required_cookies.description')|trans({}, 'CookieConsentBundle') }}</p>
+                    {% block required_cookies_category_label %}
+                        <p>{{ ('cookie_consent.required_cookies.title')|trans({}, 'CookieConsentBundle') }}</p>
+                    {% endblock required_cookies_category_label %}
+                    {% block required_cookies_category_body %}
+                        <p>{{ ('cookie_consent.required_cookies.description')|trans({}, 'CookieConsentBundle') }}</p>
+                    {% endblock required_cookies_category_body %}
                 </div>
             {% endblock required_cookies_category %}
+
             {% for child in form %}
                 {% if child.vars.block_prefixes[0] != 'button' %}
                     {{ form_row(child) }}
@@ -41,6 +48,6 @@
         {{ form_end(form) }}
     </div>
 
-{% if position == 'dialog' %}
+    {% if position == 'dialog' %}
 </dialog>
 {% endif %}
