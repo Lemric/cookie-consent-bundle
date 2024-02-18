@@ -23,8 +23,8 @@ class CookieConsentTwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'cookieconsent_isCookieConsentSavedByUser',
-                [$this, 'isCookieConsentSavedByUser'],
+                'cookieconsent_isCookieConsentOptionSetByUser',
+                [$this, 'isCookieConsentOptionSetByUser'],
                 ['needs_context' => true]
             ),
             new TwigFunction(
@@ -43,7 +43,7 @@ class CookieConsentTwigExtension extends AbstractExtension
     /**
      * Checks if user has sent cookie consent form.
      */
-    public function isCookieConsentSavedByUser(array $context): bool
+    public function isCookieConsentOptionSetByUser(array $context): bool
     {
         $cookieChecker = $this->getCookieChecker($context['app']->getRequest());
 
