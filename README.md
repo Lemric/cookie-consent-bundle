@@ -53,20 +53,23 @@ cookie_consent:
     name_prefix: '' # string, any string you like to prefix the cookie names with
     cookies:
       consent_cookie:
-        http_only: true # boolean, refer to mdn docs for more info
-        secure: true # boolean, enable or disable transport only over https
-        same_site: 'lax' # available values: 'strict', 'lax', 'none'
         expires: 'P180D' # available values: PHP formatted date string, 'P180D' (180 days), 'P1Y' (1 year) etc.
+        domain: null # optional: string or null, domain name, e.g. 'example.com'; null means 'use the current domain'
+        secure: true # boolean, true by deafult, enable or disable transport only over https
+        http_only: true # boolean, refer to mdn docs for more info
+        same_site: 'lax' # available values: 'strict', 'lax', 'none'; if value is 'none' the 'secure' flag will be set to true by default
       consent_key_cookie:
-        http_only: true
-        secure: true
-        same_site: 'lax'
         expires: 'P180D'
+        domain: null
+        secure: true
+        http_only: true
+        same_site: 'lax'
       consent_categories_cookie:
-        http_only: true
-        secure: true
-        same_site: 'lax'
         expires: 'P180D'
+        domain: null
+        secure: true
+        http_only: true
+        same_site: 'lax'
   consent_categories: # Below are the default supported categories
     - 'analytics'
     - 'tracking'

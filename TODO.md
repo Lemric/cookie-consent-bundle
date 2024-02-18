@@ -1,6 +1,6 @@
 # Next!
 - Cookie settings
-  - [ ] Add domain as configurable option
+  - [x] Add domain as configurable option
   - form action:
     - **why is cookie consent modal shown again after redirect to route?**
     - [x] prevent default form submit

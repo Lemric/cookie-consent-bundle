@@ -9,14 +9,16 @@ class CookieSetting
     private bool $secure;
     private string $sameSite;
     private string $expires;
+    private ?string $domain;
 
-    public function __construct(string $name, bool $httpOnly, bool $secure, string $sameSite, string $expires)
+    public function __construct(string $name, string $expires, ?string $domain, bool $secure, bool $httpOnly, string $sameSite)
     {
         $this->name = $name;
-        $this->httpOnly = $httpOnly;
-        $this->secure = $secure;
-        $this->sameSite = $sameSite;
         $this->expires = $expires;
+        $this->domain = $domain;
+        $this->secure = $secure;
+        $this->httpOnly = $httpOnly;
+        $this->sameSite = $sameSite;
     }
 
     public function getName(): string
@@ -42,5 +44,10 @@ class CookieSetting
     public function getExpires(): string
     {
         return $this->expires;
+    }
+
+    public function getDomain()
+    {
+        return $this->domain;
     }
 }

@@ -33,10 +33,11 @@ class CookieHandler
     {
         return new CookieSetting(
             $config['name'],
-            $config['http_only'],
-            $config['secure'],
-            $config['same_site'],
             $config['expires'],
+            $config['domain'],
+            $config['secure'],
+            $config['http_only'],
+            $config['same_site'],
         );
     }
 
@@ -48,7 +49,7 @@ class CookieHandler
     {
         $consentCookie = $this->cookieSettings->getConsentCookie();
         if ($consentCookie != null) {
-            $this->saveCookie($consentCookie->getName(), date('r'), $consentCookie->getExpires(),
+            $this->saveCookie($consentCookie->getName(), date('r'), $consentCookie->getExpires(), $consentCookie->getDomain(),
                 $consentCookie->isSecure(), $consentCookie->isHttpOnly(), $consentCookie->getSameSite(), $response);
         }
 
@@ -58,7 +59,7 @@ class CookieHandler
 
         $consentKeyCookie = $this->cookieSettings->getConsentKeyCookie();
         if ($consentKeyCookie != null) {
-            $this->saveCookie($consentKeyCookie->getName(), $cookieConsentKey, $consentKeyCookie->getExpires(),
+            $this->saveCookie($consentKeyCookie->getName(), $cookieConsentKey, $consentKeyCookie->getExpires(), $consentKeyCookie->getDomain(),
                 $consentKeyCookie->isSecure(), $consentKeyCookie->isHttpOnly(), $consentKeyCookie->getSameSite(), $response);
         }
 
@@ -66,7 +67,7 @@ class CookieHandler
         if ($consentCategoriesCookie != null) {
             foreach ($categories as $category => $permitted) {
                 if ($permitted != null) {
-                    $this->saveCookie($consentCategoriesCookie->getName() . '-' . $category, $permitted, $consentCategoriesCookie->getExpires(),
+                    $this->saveCookie($consentCategoriesCookie->getName() . '-' . $category, $permitted, $consentCategoriesCookie->getExpires(), $consentCategoriesCookie->getDomain(),
                         $consentCategoriesCookie->isSecure(), $consentCategoriesCookie->isHttpOnly(), $consentCategoriesCookie->getSameSite(), $response);
                 }
             }
@@ -87,6 +88,7 @@ class CookieHandler
     protected function saveCookie(string   $name,
                                   string   $value,
                                   string   $expires,
+                                  ?string   $domain,
                                   bool     $secure,
                                   bool     $httpOnly,
                                   string   $sameSite,
@@ -100,7 +102,7 @@ class CookieHandler
         }
 
         $response->headers->setCookie(
-            new Cookie($this->cookieSettings->getNamePrefix() . $name, $value, $expirationDate, '/', null, $secure, $httpOnly, true, $sameSite)
+            new Cookie($this->cookieSettings->getNamePrefix() . $name, $value, $expirationDate, '/', $domain, $secure, $httpOnly, true, $sameSite)
         );
     }
 }
