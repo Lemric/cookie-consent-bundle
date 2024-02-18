@@ -19,7 +19,7 @@ class CookieChecker
     /**
      * Check if cookie consent has already been saved.
      */
-    public function isCookieConsentSavedByUser(): bool
+    public function isCookieConsentOptionSetByUser(): bool
     {
         return $this->request->cookies->has(CookieNameEnum::COOKIE_CONSENT_NAME);
     }

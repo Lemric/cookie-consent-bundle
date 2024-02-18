@@ -11,8 +11,8 @@ use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use huppys\CookieConsentBundle\Form\CookieConsentType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -57,9 +57,9 @@ class CookieConsentControllerTest extends TestCase
     {
         $this->formFactory
             ->expects($this->once())
-            ->method('create')
+            ->method('createBuilder')
             ->with(CookieConsentType::class)
-            ->willReturn($this->createMock(FormInterface::class));
+            ->willReturn($this->createMock(FormBuilderInterface::class));
 
         $this->templating
             ->expects($this->once())
@@ -75,14 +75,14 @@ class CookieConsentControllerTest extends TestCase
     {
         $this->cookieChecker
             ->expects($this->once())
-            ->method('isCookieConsentSavedByUser')
+            ->method('isCookieConsentOptionSetByUser')
             ->willReturn(false);
 
         $this->formFactory
             ->expects($this->once())
-            ->method('create')
+            ->method('createBuilder')
             ->with(CookieConsentType::class)
-            ->willReturn($this->createMock(FormInterface::class));
+            ->willReturn($this->createMock(FormBuilderInterface::class));
 
         $this->templating
             ->expects($this->once())
@@ -98,14 +98,14 @@ class CookieConsentControllerTest extends TestCase
     {
         $this->cookieChecker
             ->expects($this->once())
-            ->method('isCookieConsentSavedByUser')
+            ->method('isCookieConsentOptionSetByUser')
             ->willReturn(false);
 
         $this->formFactory
             ->expects($this->once())
-            ->method('create')
+            ->method('createBuilder')
             ->with(CookieConsentType::class)
-            ->willReturn($this->createMock(FormInterface::class));
+            ->willReturn($this->createMock(FormBuilderInterface::class));
 
         $this->templating
             ->expects($this->once())
@@ -140,7 +140,7 @@ class CookieConsentControllerTest extends TestCase
     {
         $this->cookieChecker
             ->expects($this->once())
-            ->method('isCookieConsentSavedByUser')
+            ->method('isCookieConsentOptionSetByUser')
             ->willReturn(true);
 
         $this->formFactory

@@ -47,7 +47,7 @@ class CookieConsentTwigExtension extends AbstractExtension
     {
         $cookieChecker = $this->getCookieChecker($context['app']->getRequest());
 
-        return $cookieChecker->isCookieConsentSavedByUser();
+        return $cookieChecker->isCookieConsentOptionSetByUser();
     }
 
     /**

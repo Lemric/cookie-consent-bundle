@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cookieConsentForm) {
         // we got a form
         const submitButtons = cookieConsentForm.querySelectorAll('.js-submit-cookie-consent-form');
-        const formAction = cookieConsentForm.action ? cookieConsentForm.action : location.href;
+        const formAction = cookieConsentForm.action || location.href;
+
+        cookieConsentForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+        });
 
         const cookieConsentDialog = document.querySelector('.cookie-consent-dialog');
         if (cookieConsentDialog) {
@@ -14,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         cookieConsentForm.querySelectorAll('.js-reject-all-cookies').forEach(function (rejectButton) {
-            rejectButton.addEventListener('click', function () {
-                // reject all was clicked!
+            rejectButton.addEventListener('click', function (event) {
+                // reject all was clicked
                 // parse form and send information about rejection to set only minimal cookies
                 fetch(formAction, {
                     method: 'POST',
@@ -34,8 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // Submit form via ajax
         submitButtons.forEach(function (button) {
             button.addEventListener('click', function (event) {
-                event.preventDefault();
-
                 document.querySelector('.js-reject-all-cookies').disabled = true;
 
                 fetch(formAction, {

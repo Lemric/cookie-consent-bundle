@@ -23,16 +23,18 @@ use Twig\Error\SyntaxError;
 class CookieConsentController
 {
     public function __construct(
-        private readonly Environment $twigEnvironment,
+        private readonly Environment          $twigEnvironment,
         private readonly FormFactoryInterface $formFactory,
-        private readonly CookieChecker $cookieChecker,
-        private readonly RouterInterface $router,
-        private readonly string $cookieConsentTheme,
-        private readonly string $cookieConsentPosition,
+        private readonly CookieChecker        $cookieChecker,
+        private readonly RouterInterface      $router,
+        private readonly string               $cookieConsentTheme,
+        private readonly string               $cookieConsentPosition,
         private readonly LocaleAwareInterface $translator,
-        private readonly string|null $formAction,
-        private readonly string|null $readMoreRoute
-    ) {}
+        private readonly string|null          $formAction,
+        private readonly string|null          $readMoreRoute
+    )
+    {
+    }
 
     /**
      * Show cookie consent.
@@ -68,7 +70,7 @@ class CookieConsentController
     #[Route('/cookie_consent_alt', name: 'cookie_consent.show_if_cookie_consent_not_set')]
     public function showIfCookieConsentNotSet(Request $request): Response
     {
-        if ($this->cookieChecker->isCookieConsentSavedByUser() === false) {
+        if ($this->cookieChecker->isCookieConsentOptionSetByUser() === false) {
             return $this->show($request);
         }
 
@@ -80,19 +82,13 @@ class CookieConsentController
      */
     protected function createCookieConsentForm(): FormInterface
     {
-        if ($this->formAction === null) {
-            $form = $this->formFactory->create(CookieConsentType::class);
-        } else {
-            $form = $this->formFactory->create(
-                CookieConsentType::class,
-                null,
-                [
-                    'action' => $this->router->generate($this->formAction),
-                ]
-            );
+        $formBuilder = $this->formFactory->createBuilder(CookieConsentType::class);
+
+        if ($this->formAction != null) {
+            $formBuilder->setAction($this->router->generate($this->formAction));
         }
 
-        return $form;
+        return $formBuilder->getForm();
     }
 
     /**

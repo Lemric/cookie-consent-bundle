@@ -1,13 +1,16 @@
 # Next!
 - Cookie settings
   - [ ] Add domain as configurable option
+  - form action:
+    - **why is cookie consent modal shown again after redirect to route?**
+    - [x] prevent default form submit
 - Logic
   - [x] Set Cookie after rejecting all cookies to not display the dialog again
   - [ ] ID for cookie consent log as UUID instead of integer
 - JavaScript
   - [x] update JS to .mjs and add bundler like rollup
-  - [ ] emit successful submit form event
-  - [ ] submit form asynchronously
+  - [x] emit successful submit form event
+  - [x] submit form asynchronously
 - SCSS
   - [x] no need for seperate styling scss
   - [ ] Style dialog

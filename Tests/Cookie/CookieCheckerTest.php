@@ -36,7 +36,7 @@ class CookieCheckerTest extends TestCase
     {
         $this->request->cookies = new InputBag($cookies);
 
-        $this->assertSame($expected, $this->cookieChecker->isCookieConsentSavedByUser());
+        $this->assertSame($expected, $this->cookieChecker->isCookieConsentOptionSetByUser());
     }
 
     /**
