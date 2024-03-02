@@ -27,7 +27,6 @@ class CookieConsentController
         private readonly FormFactoryInterface $formFactory,
         private readonly CookieChecker        $cookieChecker,
         private readonly RouterInterface      $router,
-        private readonly string               $cookieConsentTheme,
         private readonly string               $cookieConsentPosition,
         private readonly LocaleAwareInterface $translator,
         private readonly string|null          $formAction,
@@ -48,7 +47,6 @@ class CookieConsentController
             $response = new Response(
                 $this->twigEnvironment->render('@CookieConsent/cookie_consent.html.twig', [
                     'form' => $this->createCookieConsentForm()->createView(),
-                    'theme' => $this->cookieConsentTheme,
                     'position' => $this->cookieConsentPosition,
                     'read_more_route' => $this->readMoreRoute,
                 ])

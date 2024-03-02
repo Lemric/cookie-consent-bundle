@@ -9,7 +9,6 @@ namespace huppys\CookieConsentBundle\DependencyInjection;
 use huppys\CookieConsentBundle\Enum\CategoryEnum;
 use huppys\CookieConsentBundle\Enum\CookieNameEnum;
 use huppys\CookieConsentBundle\Enum\PositionEnum;
-use huppys\CookieConsentBundle\Enum\ThemeEnum;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -28,10 +27,6 @@ class Configuration implements ConfigurationInterface
                 ->variableNode('consent_categories')
                     ->defaultValue([CategoryEnum::CATEGORY_TRACKING, CategoryEnum::CATEGORY_MARKETING, CategoryEnum::CATEGORY_SOCIAL_MEDIA])
                     ->info('Set the categories of consent that should be used')
-                ->end()
-                ->enumNode('theme')
-                    ->defaultValue(ThemeEnum::THEME_LIGHT)
-                    ->values(ThemeEnum::getAvailableThemes())
                 ->end()
                 ->enumNode('position')
                     ->defaultValue(PositionEnum::POSITION_TOP)

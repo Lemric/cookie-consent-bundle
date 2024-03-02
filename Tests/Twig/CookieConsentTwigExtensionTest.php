@@ -17,10 +17,10 @@ class CookieConsentTwigExtensionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->CookieConsentTwigExtension = new CookieConsentTwigExtension('light');
+        $this->CookieConsentTwigExtension = new CookieConsentTwigExtension();
     }
 
-    public function testIsCookieConsentSavedByUser(): void
+    public function testIsCookieConsentOptionSetByUser(): void
     {
         $request  = new Request();
 
@@ -31,7 +31,7 @@ class CookieConsentTwigExtensionTest extends TestCase
             ->wilLReturn($request);
 
         $context = ['app' => $appVariable];
-        $result  = $this->CookieConsentTwigExtension->isCookieConsentSavedByUser($context);
+        $result  = $this->CookieConsentTwigExtension->isCookieConsentOptionSetByUser($context);
 
         $this->assertSame($result, false);
     }

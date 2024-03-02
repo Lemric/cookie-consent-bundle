@@ -28,11 +28,11 @@ class CookieCheckerTest extends TestCase
     }
 
     /**
-     * @dataProvider isCookieConsentSavedByUserDataProvider
+     * @dataProvider isCookieConsentOptionSetByUserDataProvider
      *
-     * Test CookieChecker:isCookieConsentSavedByUser
+     * Test CookieChecker:isCookieConsentOptionSetByUser
      */
-    public function testIsCookieConsentSavedByUser(array $cookies = [], bool $expected = false): void
+    public function testIsCookieConsentOptionSetByUser(array $cookies = [], bool $expected = false): void
     {
         $this->request->cookies = new InputBag($cookies);
 
@@ -40,9 +40,9 @@ class CookieCheckerTest extends TestCase
     }
 
     /**
-     * Data provider for testIsCookieConsentSavedByUser.
+     * Data provider for testIsCookieConsentOptionSetByUser.
      */
-    public static function isCookieConsentSavedByUserDataProvider(): array
+    public static function isCookieConsentOptionSetByUserDataProvider(): array
     {
         return [
             [['consent' => date('r')], true],

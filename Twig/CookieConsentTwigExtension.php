@@ -12,7 +12,7 @@ use Twig\TwigFunction;
 
 class CookieConsentTwigExtension extends AbstractExtension
 {
-    public function __construct(private readonly string $cookieConsentTheme)
+    public function __construct()
     {
     }
 
@@ -31,11 +31,6 @@ class CookieConsentTwigExtension extends AbstractExtension
                 'cookieconsent_isCategoryAllowedByUser',
                 [$this, 'isCategoryAllowedByUser'],
                 ['needs_context' => true]
-            ),
-            new TwigFunction(
-                'cookieconsent_getTheme',
-                [$this, 'getTheme'],
-                ['needs_context' => false]
             ),
         ];
     }
@@ -59,16 +54,6 @@ class CookieConsentTwigExtension extends AbstractExtension
 
         return $cookieChecker->isCategoryAllowedByUser($category);
     }
-
-    public function getTheme(): string
-    {
-        if (isset($this->cookieConsentTheme)) {
-            return $this->cookieConsentTheme;
-        }
-
-        return 'light'; // default theme
-    }
-
     /**
      * Get instance of CookieChecker.
      */

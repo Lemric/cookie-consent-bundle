@@ -18,7 +18,7 @@ class CookieConsentType extends AbstractType
     protected CookieChecker $cookieChecker;
     protected array $cookieCategories;
     protected bool $csrfProtection;
-    private TranslatorInterface $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(
         TranslatorInterface $translator,
@@ -61,13 +61,13 @@ class CookieConsentType extends AbstractType
         $builder->add('save', SubmitType::class, [
             'label' => $this->translate('cookie_consent.save'),
             'attr' => [
-                'class' => 'btn cookie-consent__btn js-submit-cookie-consent-form'
+                'class' => 'cookie-consent__btn js-submit-cookie-consent-form'
             ]
         ]);
         $builder->add('reject_all', SubmitType::class, [
             'label' => $this->translate('cookie_consent.reject_all'),
             'attr' => [
-                'class' => 'btn cookie-consent__btn js-reject-all-cookies'
+                'class' => 'cookie-consent__btn js-reject-all-cookies'
             ]
         ]);
     }
@@ -84,7 +84,7 @@ class CookieConsentType extends AbstractType
         ]);
     }
 
-    private function translate(string $key): string
+    protected function translate(string $key): string
     {
         return $this->translator->trans($key, [], 'CookieConsentBundle');
     }

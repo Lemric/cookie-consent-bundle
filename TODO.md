@@ -20,6 +20,18 @@
   - [x] Style form --> form styles can be applied by using and configuring the symfony twig bundle
       - https://symfony.com/doc/current/form/form_themes.html
       - https://symfony.com/doc/current/forms.html#rendering-forms
+  - [ ] What parts are themeable and changeable?
+    - [ ] Header 
+      - has to be generic to place logo, title or whatever
+    - [ ] Main section
+      - [ ] pre-form section
+      - [ ] Form
+        - [ ] form widgets
+          - overwritable [CookieConsentType.php](Form%2FCookieConsentType.php)???
+        - [ ] form submit buttons
+      - [ ] post-form section
+    - [ ] Footer
+      - has to be generic to whatever content to user needs
 - Security
   - Which domain is set when setting cookies? With subdomain?
 - Project setup

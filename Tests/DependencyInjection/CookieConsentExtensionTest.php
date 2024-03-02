@@ -29,7 +29,6 @@ class CookieConsentExtensionTest extends TestCase
         $this->createConfiguration($this->getFullConfig());
 
         $this->assertParameter(['tracking', 'marketing', 'social_media'], 'cookie_consent.cookie_settings.consent_categories');
-        $this->assertParameter('dark', 'cookie_consent.theme');
         $this->assertParameter('top', 'cookie_consent.position');
     }
 
@@ -92,7 +91,6 @@ cookie_settings:
             secure: true
             same_site: 'lax'
             expires: 'P180D'
-theme: 'dark'
 position: 'top'
 csrf_protection: true
 EOF;
@@ -107,7 +105,7 @@ EOF;
     protected function getInvalidConfig(): array
     {
         $yaml = <<<EOF
-theme: 'not_existing'
+position: 'not_existing'
 EOF;
         $parser = new Parser();
 

@@ -1,7 +1,3 @@
 {% block style %}
     <link rel="stylesheet" href="{{ asset('bundles/cookieconsent/css/cookie-consent.min.css') }}"/>
-
-    {% if cookieconsent_getTheme() == 'dark' %}
-        <link rel="stylesheet" href="{{ asset('bundles/cookieconsent/css/cookie-consent-dark.min.css') }}"/>
-    {% endif %}
 {% endblock %}

@@ -24,7 +24,6 @@ class CookieConsentExtension extends Extension
         $container->setParameter('cookie_consent.cookie_settings.cookies', $config['cookie_settings']['cookies']);
         $container->setParameter('cookie_consent.cookie_settings.consent_categories', $config['consent_categories']);
         $container->setParameter('cookie_consent.persist_consent', $config['persist_consent']);
-        $container->setParameter('cookie_consent.theme', $config['theme']);
         $container->setParameter('cookie_consent.position', $config['position']);
         $container->setParameter('cookie_consent.form_action', $config['form_action']);
         $container->setParameter('cookie_consent.read_more_route', $config['read_more_route']);
