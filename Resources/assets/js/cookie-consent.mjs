@@ -9,6 +9,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         cookieConsentForm.addEventListener('submit', function (event) {
             event.preventDefault();
+
+            fetch(formAction, {
+                method: 'POST',
+                body: new FormData(cookieConsentForm, event.submitter)
+            }).then(function (res) {
+                if (res.status >= 200 && res.status < 300) {
+                    hideCookieConsentForm(cookieConsent, cookieConsentDialog);
+                    dispatchSuccessEvent(event.submitter);
+                }
+            }).catch(function (error) {
+                console.error('Error:', error);
+            });
         });
 
         const cookieConsentDialog = document.querySelector('.cookie-consent-dialog');
@@ -16,43 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // we got a dialog, show it
             cookieConsentDialog.showModal();
         }
-
-        cookieConsentForm.querySelectorAll('.js-reject-all-cookies').forEach(function (rejectButton) {
-            rejectButton.addEventListener('click', function (event) {
-                // reject all was clicked
-                // parse form and send information about rejection to set only minimal cookies
-                fetch(formAction, {
-                    method: 'POST',
-                    body: new FormData(cookieConsentForm, rejectButton)
-                }).then(function (res) {
-                    if (res.status >= 200 && res.status < 300) {
-                        hideCookieConsentForm(cookieConsent, cookieConsentDialog);
-                        dispatchSuccessEvent(rejectButton);
-                    }
-                }).catch(function (error) {
-                    console.error('Error:', error);
-                });
-            });
-        });
-
-        // Submit form via ajax
-        submitButtons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                document.querySelector('.js-reject-all-cookies').disabled = true;
-
-                fetch(formAction, {
-                    method: 'POST',
-                    body: new FormData(cookieConsentForm, event.target)
-                }).then(function (res) {
-                    if (res.status >= 200 && res.status < 300) {
-                        hideCookieConsentForm(cookieConsent, cookieConsentDialog);
-                        dispatchSuccessEvent(event.target);
-                    }
-                }).catch(function (error) {
-                    console.error('Error:', error);
-                });
-            }, false);
-        });
     }
 });
 

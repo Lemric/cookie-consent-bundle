@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Symfony bundle to ask the visitors for their consent to use cookies to comply to AVG/GDPR.",
   "scripts": {
-    "build:prod": "node build.mjs && rollup --config rollup.config.mjs"
+    "build:prod": "node build.mjs && rollup --config rollup.config.mjs",
+    "build:dev": "node build.mjs && rollup --config rollup.dev.config.mjs",
+    "watch": "node build-server.mjs & nodemon --watch Resources/assets -e scss,mjs build.mjs",
+    "build-server": "node build-server.mjs"
   },
   "repository": {
     "type": "git",
@@ -32,10 +35,13 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-terser": "^0.4.4",
     "autoprefixer": "^10.4.16",
+    "chokidar": "^3.6.0",
     "glob": "^10.3.10",
+    "nodemon": "^3.1.0",
     "postcss-cli": "^11.0.0",
     "rollup": "^4.8.0",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "ws": "^8.16.0"
   },
   "dependencies": {
     "postcss": "^8.4.32"
