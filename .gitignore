@@ -6,3 +6,4 @@ vendor/
 /.phpunit.result.cache
 /node_modules/
 /.phpunit.cache
+/.php-cs-fixer.cache

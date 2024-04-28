@@ -1,5 +1,6 @@
 # Next!
 - Cookie settings
+  - [ ] Allow only necessary cookies
   - [x] Add domain as configurable option
   - form action:
     - **why is cookie consent modal shown again after redirect to route?**
@@ -36,3 +37,39 @@
   - Which domain is set when setting cookies? With subdomain?
 - Project setup
   - [ ] Create Symfony Flex recipe: https://github.com/symfony/recipes
+  - [ ] Setup watchers for JS and SCSS separately
+    - Separate dev from prod builds 
+    - JS is handled by Rollup watching assets and rebuilding if needed, notifying the websocket server when done
+    - SCSS is handled like before but with a watcher, maybe use https://github.com/egoist/rollup-plugin-postcss - so we can build in rollup only
+
+# Expectations
+
+## Visibile
+- consent dialog
+  - positionable
+  - themeable
+    - Guide: https://blog.logrocket.com/a-guide-to-theming-in-css/ and https://blog.logrocket.com/create-better-themes-with-css-variables/
+    - Dark mode: https://web.dev/learn/design/theming/#provide_a_dark_mode
+  - editable description
+  - fillable slots
+- compliant ([overview](https://gdpr.eu/cookies/))
+  - equally displayed buttons to allow or reject all cookies
+  - privacy by default
+  - revokation of consent has to be persistent, too
+  - session or persistent cookie?
+  - legitimate interest?
+  - nice to have:
+    - Close button in top right corner
+- content
+  - configurable categories
+    - explicit cookies under each category
+    - Categories are:
+      - Strictly necessary cookies
+      - Preferences cookies
+      - Statistics cookies
+      - Marketing cookies
+  - submit types
+    - save
+    - reject all
+- persistence
+  - logging

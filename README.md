@@ -1,5 +1,8 @@
 # Cookie Consent bundle for Symfony
 
+As soon as you are collecting or processing personally identifiable information (short `PII`) you are obliged to allow
+your visitors to decide what information are collected. This cookie consent banner bundle helps you to help your users. 
+
 Symfony bundle to integrate a cookie consent dialog to your website and to handle cookies according to AVG/GDPR.
 
 ## Installation
@@ -51,7 +54,7 @@ config/routing.yml:
 
 ```yaml
 cookie_consent:
-  resource: "@CookieConsentBundle/Resources/config/routing.yaml"
+  resource: "@CookieConsentBundle/config/routing.yaml"
 ```
 
 ### Step 4: Configure to your needs
@@ -87,7 +90,7 @@ cookie_consent:
     - 'marketing'
     - 'social_media'
   persist_consent: true # boolean; logs user actions to database
-  position: 'top' # available values: 'top', 'bottom', 'dialog'
+  position: 'dialog' # available values: 'bottom', 'dialog'
   form_action: $routeName # When set, xhr-Requests will only be sent to this route. Take care of having the route available.
   csrf_protection: true # boolean; enable or disable csrf protection for the form
 ```
@@ -134,7 +137,7 @@ AVG/GDPR requires all given cookie preferences of users to be explainable by the
 preferences to the database. IP addresses are anonymized. You can disable logging the given consent by
 setting `persist_consent` to *false*.
 
-![Database logging](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/Resources/doc/log.png)
+![Database logging](https://raw.githubusercontent.com/huppys/cookie-consent-bundle/master/docs/log.png)
 
 ### TwigExtension
 
@@ -169,19 +172,21 @@ translations available for these categories.
 ### Translations
 
 All texts can be altered via Symfony translations by overwriting the CookieConsentBundle translation files. Take a look
-at ``Resources/translations`` into any of the `yaml` files to get an idea of the structure.
+at ``translations`` into any of the `yaml` files to get an idea of the structure.
 
 ### Customization: Contents
+
 Most of the blocks in this consent layer a customizable. The blocks are:
+
 - header
-  - title
-  - intro
-  - read_more
+    - title
+    - intro
+    - read_more
 - pre_form
 - consent_form ???
-  - consent_form_start
-  - required_cookies_category
-  - consent_form_rest
+    - consent_form_start
+    - required_cookies_category
+    - consent_form_rest
 - post_form
 - scripts
 
@@ -189,7 +194,7 @@ Create a file : ``templates/bundles/CookieConsentBundle/cookie_consent.html.twig
 
 ```twig
 # app/templates/bundles/CookieConsentBundle/cookie_consent.html.twig
-{% extends '@!CookieConsent/cookie_consent.html.twig' %} # this extends the base layout
+{% extends '@!CookieConsent/cookie_consent.html.twig' %} {# this extends the base layout#}
 
 {% block title %}
     Your custom title
@@ -257,8 +262,8 @@ As Twig allows the loading of multiple themes, ensure that yours is the last one
 
 ### Styling
 
-CookieConsentBundle comes with a default styling. A sass file is available in `Resources/assets/css/cookie_consent.scss`
-and a build css file is available in `Resources/public/css/cookie_consent.css`.
+CookieConsentBundle comes with a default styling. A sass file is available in `assets/css/cookie_consent.scss`
+and a build css file is available in `public/css/cookie_consent.css`.
 Colors can easily be adjusted by setting the variables available in the sass file.
 
 To apply the default styling to your website, include the following line in your twig template:

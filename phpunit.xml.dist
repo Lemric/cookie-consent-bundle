@@ -6,20 +6,19 @@
     <coverage/>
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>Tests/</directory>
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
-            <directory>./</directory>
+            <directory>./src</directory>
         </include>
         <exclude>
-            <directory>./doc</directory>
-            <directory>./Enum</directory>
-            <directory>./Entity</directory>
-            <directory>./Resources</directory>
-            <directory>./Tests</directory>
+            <directory>./tests</directory>
             <directory>./vendor</directory>
+            <directory>./assets</directory>
+            <directory>./docs</directory>
+            <directory>./templates</directory>
         </exclude>
     </source>
 </phpunit>
