@@ -18,7 +18,7 @@ class ConsentCookie
         $this->name = $name;
     }
 
-    public function isValue(): bool
+    public function getValue(): bool
     {
         return $this->value;
     }

@@ -9,6 +9,7 @@ class ConsentCategory
 {
     private string $name;
     private Collection $cookies;
+    private bool $userConsent;
 
     public function __construct()
     {
@@ -20,13 +21,23 @@ class ConsentCategory
         return $this->name;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getCookies(): Collection
     {
         return $this->cookies;
     }
 
-    public function setName(string $name): void
+    public function getUserConsent(): bool
     {
-        $this->name = $name;
+        return $this->userConsent;
+    }
+
+    public function setUserConsent(bool $userConsent): void
+    {
+        $this->userConsent = $userConsent;
     }
 }

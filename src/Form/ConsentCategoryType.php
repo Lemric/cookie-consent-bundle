@@ -4,7 +4,8 @@ namespace huppys\CookieConsentBundle\Form;
 
 use huppys\CookieConsentBundle\Entity\ConsentCategory;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -20,15 +21,27 @@ class ConsentCategoryType extends AbstractType
         $this->translator = $translator;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options = []): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 //        $categoryTitle = $this->translate('cookie_consent.' . $category . '.title');
 //        $categoryDescription = $this->translate('cookie_consent.' . $category . '.description');
-        $builder->add('cookies', CollectionType::class, [
-            'entry_type' => ConsentCookieType::class,
-        ]);
 
-        $builder->add('name');
+        /**
+         * @type ConsentCategory $consentCategory
+         */
+        $consentCategory = $options['data'];
+
+        $builder->add('name', HiddenType::class);
+
+        foreach ($consentCategory->getCookies() as $cookie) {
+            $builder->add('cookies', ConsentCookieType::class, [
+                'data' => $cookie
+            ]);
+        }
+        $builder->add('userConsent', CheckboxType::class, [
+            'value' => $consentCategory->getUserConsent(),
+            'required' => true,
+        ]);
     }
 
     /**

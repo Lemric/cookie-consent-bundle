@@ -30,6 +30,7 @@ class ConsentDetailedTypeTest extends TypeTestCase
 
             $consentCategory = new ConsentCategory();
             $consentCategory->setName($category['name']);
+            $consentCategory->setUserConsent($category['userConsent']);
 
             foreach ($category['cookies'] as $cookie) {
                 $consentCookie = new ConsentCookie();
@@ -75,21 +76,23 @@ class ConsentDetailedTypeTest extends TypeTestCase
         return [
             'dataset:accept_all_clicked' => [
                 [
-                    FormSubmitName::ACCEPT_ALL => true,
+                    FormSubmitName::SAVE_CONSENT_SETTINGS => true,
                     'description' => 'test_detailed_type',
                     'categories' => [
                         [
                             'name' => 'analytics',
+                            'userConsent' => false,
                             'cookies' => [
                                 [
                                     'name' => 'googleanalytics',
-                                    'value' => true,
+                                    'value' => false,
                                     'descriptionKey' => 'googleanalytics',
                                 ]
                             ],
                         ],
                         [
                             'name' => 'tracking',
+                            'userConsent' => true,
                             'cookies' => [
                                 [
                                     'name' => 'googletagmanager',
@@ -100,6 +103,7 @@ class ConsentDetailedTypeTest extends TypeTestCase
                         ],
                         [
                             'name' => 'social_media',
+                            'userConsent' => false,
                             'cookies' => [
                                 [
                                     'name' => 'meta',
@@ -116,7 +120,7 @@ class ConsentDetailedTypeTest extends TypeTestCase
                     ],
                     'consent_version' => 1,
                 ],
-                FormSubmitName::ACCEPT_ALL,
+                FormSubmitName::SAVE_CONSENT_SETTINGS,
             ]
         ];
     }
