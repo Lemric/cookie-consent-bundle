@@ -1,25 +1,9 @@
-parameters:
-
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-        bind:
-            $cookieSettings: '%cookie_consent.cookie_settings%'
-            $cookieCategories: '%cookie_consent.cookie_settings.consent_categories%'
-            $persistConsent: '%cookie_consent.persist_consent%'
-            $cookieConsentPosition: '%cookie_consent.position%'
-            $formAction: '%cookie_consent.form_action%'
-            $readMoreRoute: '%cookie_consent.read_more_route%'
-            $csrfProtection: '%cookie_consent.csrf_protection%'
-
-    huppys\CookieConsentBundle\:
-        resource: '../'
-        exclude: '../{vendor,tests}'
+#    huppys\CookieConsentBundle\:
+#        resource: '../src/'
 
     huppys\CookieConsentBundle\Controller\:
-        resource: '../Controller/*'
+        resource: '../src/Controller/*'
         public: true
 
     huppys\CookieConsentBundle\Cookie\CookieChecker:
