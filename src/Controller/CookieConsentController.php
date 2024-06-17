@@ -7,6 +7,7 @@ namespace huppys\CookieConsentBundle\Controller;
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use huppys\CookieConsentBundle\Enum\FormSubmitName;
 use huppys\CookieConsentBundle\Form\ConsentCookieType;
+use huppys\CookieConsentBundle\Form\ConsentDetailedType;
 use huppys\CookieConsentBundle\Form\ConsentSimpleType;
 use huppys\CookieConsentBundle\Service\CookieConsentService;
 use Psr\Log\LoggerInterface;
@@ -92,6 +93,7 @@ class CookieConsentController
             $response = new Response(
                 $this->twigEnvironment->render('@CookieConsent/cookie_consent.html.twig', [
                     'simple_form' => $this->createSimpleConsentForm()->createView(),
+                    'detailed_form' => $this->createDetailedConsentForm()->createView(),
                     'form' => $this->createCookieConsentForm()->createView(),
                     'position' => $this->cookieConsentPosition,
                     'read_more_route' => $this->readMoreRoute,
@@ -159,5 +161,16 @@ class CookieConsentController
             $this->translator->setLocale($locale);
             $request->setLocale($locale);
         }
+    }
+
+    private function createDetailedConsentForm(): FormInterface
+    {
+        $formBuilder = $this->formFactory->createBuilder(ConsentDetailedType::class);
+
+        if ($this->formAction != null) {
+            $formBuilder->setAction($this->router->generate($this->formAction));
+        }
+
+        return $formBuilder->getForm();
     }
 }

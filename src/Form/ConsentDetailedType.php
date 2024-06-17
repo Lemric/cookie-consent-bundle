@@ -5,6 +5,7 @@ namespace huppys\CookieConsentBundle\Form;
 use huppys\CookieConsentBundle\Entity\ConsentDetailedConfiguration;
 use huppys\CookieConsentBundle\Enum\FormSubmitName;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,16 +28,13 @@ class ConsentDetailedType extends AbstractType
     /**
      * Build the cookie consent form.
      */
-    public function buildForm(FormBuilderInterface $builder, array $options = []): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('description');
         // build collection of categories
-
-        foreach ($options['data']->getCategories() as $category) {
-            $builder->add('categories', ConsentCategoryType::class, [
-                'data' => $category,
-            ]);
-        }
+        $builder->add('categories', CollectionType::class, [
+            'entry_type' => ConsentCategoryType::class,
+        ]);
 
 
         // add buttons
