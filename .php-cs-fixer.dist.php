@@ -21,8 +21,8 @@ return (new PhpCsFixer\Config())
         ],
         'header_comment'         => [
             'header' => <<<EOH
-This file is part of the CookieConsentBundle package.
-Originally created by Connect Holland.
+This file is part of the CookieConsentBundle symfony bundle.
+Created by Oliver Witzki.
 EOH
                 ,
             ]

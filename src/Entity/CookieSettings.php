@@ -1,6 +1,6 @@
 <?php
 
-namespace huppys\CookieConsentBundle\Cookie;
+namespace huppys\CookieConsentBundle\Entity;
 
 class CookieSettings
 {

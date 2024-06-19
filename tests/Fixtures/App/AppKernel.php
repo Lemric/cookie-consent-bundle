@@ -17,7 +17,7 @@ class AppKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new CookieConsentBundle(),
+            new CookieConsentBundle()
         ];
     }
 

@@ -7,6 +7,8 @@ namespace huppys\CookieConsentBundle\Cookie;
 use DateInterval;
 use DateTime;
 use Exception;
+use huppys\CookieConsentBundle\Entity\CookieSetting;
+use huppys\CookieConsentBundle\Entity\CookieSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 

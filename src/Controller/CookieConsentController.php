@@ -6,7 +6,6 @@ namespace huppys\CookieConsentBundle\Controller;
 
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use huppys\CookieConsentBundle\Enum\FormSubmitName;
-use huppys\CookieConsentBundle\Form\ConsentCookieType;
 use huppys\CookieConsentBundle\Form\ConsentDetailedType;
 use huppys\CookieConsentBundle\Form\ConsentSimpleType;
 use huppys\CookieConsentBundle\Service\CookieConsentService;
@@ -40,6 +39,34 @@ class CookieConsentController
         private readonly CookieConsentService $cookieConsentService
     )
     {
+    }
+
+    /**
+     * Show cookie consent.
+     */
+    #[Route('/cookie-consent/show', name: 'cookie_consent.show')]
+    public function show(Request $request): Response
+    {
+        $this->setLocale($request);
+
+        try {
+            $response = new Response(
+                $this->twigEnvironment->render('@CookieConsent/cookie_consent.html.twig', [
+                    'simple_form' => $this->createSimpleConsentForm()->createView(),
+                    'detailed_form' => $this->createDetailedConsentForm()->createView(),
+                    'position' => $this->cookieConsentPosition,
+                    'read_more_route' => $this->readMoreRoute,
+                ])
+            );
+
+            // Cache in ESI should not be shared
+            $response->setPrivate();
+            $response->setMaxAge(0);
+
+            return $response;
+        } catch (LoaderError|RuntimeError|SyntaxError $e) {
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     #[Route('/cookie-consent/update', name: 'cookie-consent.update')]
@@ -82,32 +109,28 @@ class CookieConsentController
     }
 
     /**
-     * Show cookie consent.
+     * Create cookie consent form.
      */
-    #[Route('/cookie-consent/show', name: 'cookie_consent.show')]
-    public function show(Request $request): Response
+    private function createSimpleConsentForm(): FormInterface
     {
-        $this->setLocale($request);
+        $formBuilder = $this->formFactory->createBuilder(ConsentSimpleType::class);
 
-        try {
-            $response = new Response(
-                $this->twigEnvironment->render('@CookieConsent/cookie_consent.html.twig', [
-                    'simple_form' => $this->createSimpleConsentForm()->createView(),
-                    'detailed_form' => $this->createDetailedConsentForm()->createView(),
-                    'form' => $this->createCookieConsentForm()->createView(),
-                    'position' => $this->cookieConsentPosition,
-                    'read_more_route' => $this->readMoreRoute,
-                ])
-            );
-
-            // Cache in ESI should not be shared
-            $response->setPrivate();
-            $response->setMaxAge(0);
-
-            return $response;
-        } catch (LoaderError|RuntimeError|SyntaxError $e) {
-            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        if ($this->formAction != null) {
+            $formBuilder->setAction($this->router->generate($this->formAction));
         }
+
+        return $formBuilder->getForm();
+    }
+
+    private function createDetailedConsentForm(): FormInterface
+    {
+        $formBuilder = $this->formFactory->createBuilder(ConsentDetailedType::class);
+
+        if ($this->formAction != null) {
+            $formBuilder->setAction($this->router->generate($this->formAction));
+        }
+
+        return $formBuilder->getForm();
     }
 
     /**
@@ -124,34 +147,6 @@ class CookieConsentController
     }
 
     /**
-     * Create cookie consent form.
-     */
-    private function createSimpleConsentForm(): FormInterface
-    {
-        $formBuilder = $this->formFactory->createBuilder(ConsentSimpleType::class);
-
-        if ($this->formAction != null) {
-            $formBuilder->setAction($this->router->generate($this->formAction));
-        }
-
-        return $formBuilder->getForm();
-    }
-
-    /**
-     * Create cookie consent form.
-     */
-    private function createCookieConsentForm(): FormInterface
-    {
-        $formBuilder = $this->formFactory->createBuilder(ConsentCookieType::class);
-
-        if ($this->formAction != null) {
-            $formBuilder->setAction($this->router->generate($this->formAction));
-        }
-
-        return $formBuilder->getForm();
-    }
-
-    /**
      * Set locale if available as GET parameter.
      */
     private function setLocale(Request $request): void
@@ -161,16 +156,5 @@ class CookieConsentController
             $this->translator->setLocale($locale);
             $request->setLocale($locale);
         }
-    }
-
-    private function createDetailedConsentForm(): FormInterface
-    {
-        $formBuilder = $this->formFactory->createBuilder(ConsentDetailedType::class);
-
-        if ($this->formAction != null) {
-            $formBuilder->setAction($this->router->generate($this->formAction));
-        }
-
-        return $formBuilder->getForm();
     }
 }
