@@ -32,7 +32,7 @@ class ConsentCookieType extends AbstractType
 //        $categoryTitle = $this->translate('cookie_consent.' . $category . '.title');
         $categoryDescription = $this->translate('cookie_consent.' . 'category_name' . '.description');
 
-        $builder->add('value', ChoiceType::class);
+        $builder->add('consentGiven', ChoiceType::class);
 
         $builder->add('name', HiddenType::class);
     }

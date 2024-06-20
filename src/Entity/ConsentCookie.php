@@ -5,7 +5,7 @@ namespace huppys\CookieConsentBundle\Entity;
 class ConsentCookie
 {
     private string $name;
-    private bool $value;
+    private bool $consentGiven;
     private string $descriptionKey;
 
     public function getName(): string
@@ -18,14 +18,14 @@ class ConsentCookie
         $this->name = $name;
     }
 
-    public function getValue(): bool
+    public function getConsentGiven(): bool
     {
-        return $this->value;
+        return $this->consentGiven;
     }
 
-    public function setValue(bool $value): void
+    public function setConsentGiven(bool $consentGiven): void
     {
-        $this->value = $value;
+        $this->consentGiven = $consentGiven;
     }
 
     public function getDescriptionKey(): string

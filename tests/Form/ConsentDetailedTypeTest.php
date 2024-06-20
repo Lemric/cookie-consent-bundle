@@ -37,7 +37,7 @@ class ConsentDetailedTypeTest extends TypeTestCase
 
                 // explicitly set fields from formData
                 $consentCookie->setName($cookie['name']);
-                $consentCookie->setValue($cookie['value']);
+                $consentCookie->setConsentGiven($cookie['consentGiven']);
                 $consentCookie->setDescriptionKey($cookie['descriptionKey']);
 
                 $consentCategory->getCookies()->add($consentCookie);
@@ -85,7 +85,7 @@ class ConsentDetailedTypeTest extends TypeTestCase
                             'cookies' => [
                                 [
                                     'name' => 'googleanalytics',
-                                    'value' => false,
+                                    'consentGiven' => false,
                                     'descriptionKey' => 'googleanalytics',
                                 ]
                             ],
@@ -96,7 +96,7 @@ class ConsentDetailedTypeTest extends TypeTestCase
                             'cookies' => [
                                 [
                                     'name' => 'googletagmanager',
-                                    'value' => true,
+                                    'consentGiven' => true,
                                     'descriptionKey' => 'googletagmanager',
                                 ]
                             ],
@@ -107,12 +107,12 @@ class ConsentDetailedTypeTest extends TypeTestCase
                             'cookies' => [
                                 [
                                     'name' => 'meta',
-                                    'value' => false,
+                                    'consentGiven' => false,
                                     'descriptionKey' => 'meta',
                                 ],
                                 [
                                     'name' => 'google',
-                                    'value' => true,
+                                    'consentGiven' => true,
                                     'descriptionKey' => 'google',
                                 ]
                             ],
