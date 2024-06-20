@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace huppys\CookieConsentBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;

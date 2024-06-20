@@ -6,6 +6,7 @@ namespace huppys\CookieConsentBundle\tests\Controller;
 
 use huppys\CookieConsentBundle\Controller\CookieConsentController;
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
+use huppys\CookieConsentBundle\Form\ConsentDetailedType;
 use huppys\CookieConsentBundle\Form\ConsentSimpleType;
 use huppys\CookieConsentBundle\Service\CookieConsentService;
 use PHPUnit\Framework\Attributes\Test;
@@ -13,6 +14,7 @@ use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +32,8 @@ class CookieConsentControllerTest extends TestCase
     private MockObject $translator;
 
     private MockObject $router;
+
+    private MockObject $cookieConsentService;
 
     private CookieConsentController $cookieConsentController;
 
@@ -61,10 +65,9 @@ class CookieConsentControllerTest extends TestCase
     #[Test]
     public function shouldReturnResponseAfterRender(): void
     {
-        $this->templating
-            ->expects($this->once())
-            ->method('render')
-            ->willReturn('test');
+        $this->expectFormsAreRendered();
+
+        $this->givenTemplateRendersTest();
 
         $response = $this->cookieConsentController->show(new Request());
 
@@ -74,10 +77,9 @@ class CookieConsentControllerTest extends TestCase
     #[Test]
     public function shouldShowConsentFormIfCookieNotSet(): void
     {
-        $this->cookieChecker
-            ->expects($this->once())
-            ->method('isCookieConsentOptionSetByUser')
-            ->willReturn(false);
+        $this->expectFormsAreRendered();
+
+        $this->givenCookieConsentNotSetByUser();
 
         $response = $this->cookieConsentController->showIfCookieConsentNotSet(new Request());
 
@@ -87,15 +89,9 @@ class CookieConsentControllerTest extends TestCase
     #[Test]
     public function shouldShowIfCookieConsentNotSetWithLocale(): void
     {
-        $this->cookieChecker
-            ->expects($this->once())
-            ->method('isCookieConsentOptionSetByUser')
-            ->willReturn(false);
+        $this->givenCookieConsentNotSetByUser();
 
-        $this->templating
-            ->expects($this->once())
-            ->method('render')
-            ->willReturn('test');
+        $this->givenTemplateRendersTest();
 
         $request = $this->createMock(Request::class);
         $locale = 'en';
@@ -124,10 +120,7 @@ class CookieConsentControllerTest extends TestCase
     #[Test]
     public function shouldShowIfCookieConsentNotSetWithCookieConsentSet(): void
     {
-        $this->cookieChecker
-            ->expects($this->once())
-            ->method('isCookieConsentOptionSetByUser')
-            ->willReturn(true);
+        $this->givenCookieConsentSetByUser();
 
         $this->formFactory
             ->expects($this->never())
@@ -141,5 +134,45 @@ class CookieConsentControllerTest extends TestCase
         $response = $this->cookieConsentController->showIfCookieConsentNotSet(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
+    }
+
+    private function givenCookieConsentSetByUser(): void
+    {
+        $this->cookieChecker
+            ->expects($this->once())
+            ->method('isCookieConsentOptionSetByUser')
+            ->willReturn(true);
+    }
+
+    private function givenCookieConsentNotSetByUser(): void
+    {
+        $this->cookieChecker
+            ->expects($this->once())
+            ->method('isCookieConsentOptionSetByUser')
+            ->willReturn(false);
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function expectFormsAreRendered(): void
+    {
+        $this->formFactory
+            ->expects($this->exactly(2))
+            ->method('createBuilder')
+            ->with($this->logicalXor(ConsentDetailedType::class, ConsentSimpleType::class))
+            ->willReturn($this->createMock(FormBuilderInterface::class));
+    }
+
+    /**
+     * @return void
+     */
+    public function givenTemplateRendersTest(): void
+    {
+        $this->templating
+            ->expects($this->once())
+            ->method('render')
+            ->willReturn('test');
     }
 }
