@@ -38,7 +38,7 @@
     "postcss-cli": "^11.0.0",
     "rollup": "^4.8.0",
     "sass": "^1.69.5",
-    "ws": "^8.16.0"
+    "ws": "^8.17.1"
   },
   "dependencies": {
     "postcss": "^8.4.32"
