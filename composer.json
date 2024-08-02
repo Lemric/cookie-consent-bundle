@@ -1,5 +1,5 @@
 {
-  "name": "huppys/cookie-consent-bundle",
+  "name": "lemric/cookie-consent-bundle",
   "type": "symfony-bundle",
   "description": "Symfony bundle to ask the visitors for their consent to use cookies to comply to AVG/GDPR.",
   "license": "MIT",
